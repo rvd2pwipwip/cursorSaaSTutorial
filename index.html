@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metrix Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="sidebar-logo">
+            <div class="sidebar-logo-icon">
+                <div class="sidebar-logo-icon-inner"></div>
+            </div>
+            <h1 class="sidebar-logo-text">Metrix</h1>
+        </div>
+        
+        <ul class="sidebar-menu">
+            <li class="sidebar-menu-item active">
+                <a href="#" class="flex items-center">
+                    <div class="sidebar-menu-icon">
+                        <i class="fas fa-th-large"></i>
+                    </div>
+                    <span class="sidebar-menu-text">Dashboard</span>
+                </a>
+            </li>
+            <li class="sidebar-menu-item">
+                <a href="#" class="flex items-center">
+                    <div class="sidebar-menu-icon">
+                        <i class="fas fa-shopping-bag"></i>
+                    </div>
+                    <span class="sidebar-menu-text">Orders</span>
+                    <span class="sidebar-menu-badge">3</span>
+                </a>
+            </li>
+            <li class="sidebar-menu-item">
+                <a href="#" class="flex items-center">
+                    <div class="sidebar-menu-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <span class="sidebar-menu-text">Customers</span>
+                </a>
+            </li>
+            <li class="sidebar-menu-item">
+                <a href="#" class="flex items-center">
+                    <div class="sidebar-menu-icon">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <span class="sidebar-menu-text">Inventory</span>
+                </a>
+            </li>
+            <li class="sidebar-menu-item">
+                <a href="#" class="flex items-center">
+                    <div class="sidebar-menu-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <span class="sidebar-menu-text">Conversations</span>
+                    <span class="sidebar-menu-badge">16</span>
+                </a>
+            </li>
+            <li class="sidebar-menu-item">
+                <a href="#" class="flex items-center">
+                    <div class="sidebar-menu-icon">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <span class="sidebar-menu-text">Settings</span>
+                </a>
+            </li>
+        </ul>
+        
+        <!-- Bottom Section -->
+        <div class="absolute bottom-0 w-64 p-6 space-y-4 bg-white">
+            <div class="flex items-center gap-3 text-gray-600 hover:bg-gray-50 rounded-xl px-4 py-3 cursor-pointer">
+                <i class="fas fa-headset"></i>
+                <span>Contact Support</span>
+            </div>
+            <div class="bg-gray-50 p-4 rounded-xl">
+                <div class="flex items-center gap-3 text-gray-600">
+                    <i class="fas fa-gift text-blue-600"></i>
+                    <span>Free Gift Awaits You!</span>
+                </div>
+                <div class="flex items-center mt-2">
+                    <span class="text-gray-600 text-sm">Upgrade your account</span>
+                    <i class="fas fa-chevron-right ml-2 text-xs text-gray-400"></i>
+                </div>
+            </div>
+            <div class="flex items-center gap-3 text-red-500 hover:bg-gray-50 rounded-xl px-4 py-3 cursor-pointer">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="main-header">
+            <h1 class="main-title">Dashboard</h1>
+            <div class="main-actions">
+                <i class="fas fa-bell main-actions-icon"></i>
+                <div class="flex items-center gap-2">
+                    <span class="main-actions-text">Nanny's Shop</span>
+                    <i class="fas fa-chevron-down text-gray-400"></i>
+                </div>
+                <div class="main-actions-avatar"></div>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- Stats Cards Row -->
+            <div class="card">
+                <!-- Sales Card Content -->
+                <div class="card-header">
+                    <div class="card-title">
+                        <div class="card-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Sales</h3>
+                    </div>
+                    <select class="card-select" id="sales-period-select">
+                        <option value="week">This Week</option>
+                        <option value="month">This Month</option>
+                        <option value="year">This Year</option>
+                    </select>
+                </div>
+                <div class="flex items-baseline gap-2">
+                    <span class="card-value" id="sales-value">$3,077.00</span>
+                </div>
+                <div class="card-stats">
+                    <div class="card-stat">
+                        <span>Volume</span>
+                        <span class="card-stat-value" id="sales-volume">450</span>
+                    </div>
+                    <span class="card-change" id="sales-change">+20.00%</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <!-- Customers Card Content -->
+                <div class="card-header">
+                    <div class="card-title">
+                        <div class="card-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Customers</h3>
+                    </div>
+                    <select class="card-select" id="customers-period-select">
+                        <option value="week">This Week</option>
+                        <option value="month">This Month</option>
+                        <option value="year">This Year</option>
+                    </select>
+                </div>
+                <div class="flex items-baseline gap-2">
+                    <span class="card-value" id="customers-value">1,250</span>
+                    <span class="card-change" id="customers-change">+15.80%</span>
+                </div>
+                <div class="card-stats">
+                    <div class="card-stat">
+                        <span>Active</span>
+                        <span class="card-stat-value" id="customers-active">1,180</span>
+                        <span class="card-change" id="customers-active-percent">85%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <!-- All Orders Card Content -->
+                <div class="card-header">
+                    <div class="card-title">
+                        <div class="card-icon">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <h3>All Orders</h3>
+                    </div>
+                    <select class="card-select" id="orders-period-select">
+                        <option value="week">This Week</option>
+                        <option value="month">This Month</option>
+                        <option value="year">This Year</option>
+                    </select>
+                </div>
+                <div class="flex items-baseline gap-2">
+                    <span class="card-value" id="orders-value">450</span>
+                </div>
+                <div class="card-stats">
+                    <div class="card-stat">
+                        <span>Pending</span>
+                        <span class="card-stat-value" id="orders-pending">5</span>
+                    </div>
+                    <div class="card-stat">
+                        <span>Completed</span>
+                        <span class="card-stat-value" id="orders-completed">445</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Marketing Stats -->
+            <div class="card marketing-container">
+                <div class="card-header">
+                    <h3 class="text-lg font-semibold">Marketing</h3>
+                    <select class="card-select">
+                        <option>This Week</option>
+                    </select>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="marketing-chart-container">
+                        <canvas id="marketingChart"></canvas>
+                        <div class="marketing-chart-center">
+                            <div class="text-center">
+                                <div class="marketing-chart-value">45%</div>
+                                <div class="marketing-chart-label">Conversion</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="marketing-legend">
+                        <div class="legend-item">
+                            <div class="legend-dot legend-dot-blue"></div>
+                            <span class="legend-text">Acquisition</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-dot legend-dot-light-blue"></div>
+                            <span class="legend-text">Purchase</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-dot legend-dot-gray"></div>
+                            <span class="legend-text">Retention</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Products Stats Container -->
+            <div class="products-container">
+                <!-- All Products Stats -->
+                <div class="products-stats">
+                    <div class="products-stats-grid">
+                        <div class="products-stat">
+                            <div class="products-stat-label">All Products</div>
+                            <div class="products-stat-value">45</div>
+                        </div>
+                        <div class="products-stat products-stat-right">
+                            <div class="products-stat-label">Active</div>
+                            <div class="products-stat-value">32</div>
+                            <div class="products-stat-change">-24%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Abandoned Cart Stats -->
+                <div class="abandoned-cart">
+                    <div class="abandoned-cart-header">
+                        <div class="abandoned-cart-title">
+                            <i class="fas fa-shopping-cart abandoned-cart-icon"></i>
+                            <h4>Abandoned Cart</h4>
+                        </div>
+                        <select class="card-select">
+                            <option>This Week</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="card-value">20%</span>
+                        <span class="card-change">+0.00%</span>
+                    </div>
+                    <div class="mt-2">
+                        <span class="text-gray-500">Customers</span>
+                        <span class="font-semibold ml-2">30</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Orders -->
+            <div class="recent-orders">
+                <div class="card-header">
+                    <h3 class="text-lg font-semibold">Recent Orders</h3>
+                    <select class="card-select">
+                        <option>This Week</option>
+                    </select>
+                </div>
+                <div class="recent-orders-list">
+                    <div class="recent-order-item">
+                        <div class="order-info">
+                            <img src="https://placehold.co/40x40" class="order-image" alt="iPhone 13">
+                            <div class="order-details">
+                                <h4>iPhone 13</h4>
+                                <span class="order-price">$562.00 × 1</span>
+                            </div>
+                        </div>
+                        <div class="order-meta">
+                            <span class="order-date">12 Sept 2022</span>
+                            <span class="order-status">Pending</span>
+                        </div>
+                    </div>
+                    <div class="recent-order-item">
+                        <div class="order-info">
+                            <img src="https://placehold.co/40x40" class="order-image" alt="iPhone 13">
+                            <div class="order-details">
+                                <h4>iPhone 13</h4>
+                                <span class="order-price">$562.00 × 1</span>
+                            </div>
+                        </div>
+                        <div class="order-meta">
+                            <span class="order-date">12 Sept 2022</span>
+                            <span class="order-status completed">Completed</span>
+                        </div>
+                    </div>
+                    <div class="recent-order-item">
+                        <div class="order-info">
+                            <img src="https://placehold.co/40x40" class="order-image" alt="iPhone 13">
+                            <div class="order-details">
+                                <h4>iPhone 13</h4>
+                                <span class="order-price">$562.00 × 1</span>
+                            </div>
+                        </div>
+                        <div class="order-meta">
+                            <span class="order-date">12 Sept 2022</span>
+                            <span class="order-status completed">Completed</span>
+                        </div>
+                    </div>
+                    <div class="recent-order-item">
+                        <div class="order-info">
+                            <img src="https://placehold.co/40x40" class="order-image" alt="iPhone 13">
+                            <div class="order-details">
+                                <h4>iPhone 13</h4>
+                                <span class="order-price">$562.00 × 1</span>
+                            </div>
+                        </div>
+                        <div class="order-meta">
+                            <span class="order-date">12 Sept 2022</span>
+                            <span class="order-status">Pending</span>
+                        </div>
+                    </div>
+                    <div class="recent-order-item">
+                        <div class="order-info">
+                            <img src="https://placehold.co/40x40" class="order-image" alt="iPhone 13">
+                            <div class="order-details">
+                                <h4>iPhone 13</h4>
+                                <span class="order-price">$562.00 × 1</span>
+                            </div>
+                        </div>
+                        <div class="order-meta">
+                            <span class="order-date">12 Sept 2022</span>
+                            <span class="order-status completed">Completed</span>
+                        </div>
+                    </div>
+                    <div class="recent-order-item">
+                        <div class="order-info">
+                            <img src="https://placehold.co/40x40" class="order-image" alt="iPhone 13">
+                            <div class="order-details">
+                                <h4>iPhone 13</h4>
+                                <span class="order-price">$562.00 × 1</span>
+                            </div>
+                        </div>
+                        <div class="order-meta">
+                            <span class="order-date">12 Sept 2022</span>
+                            <span class="order-status">Pending</span>
+                        </div>
+                    </div>
+                    <div class="recent-order-item">
+                        <div class="order-info">
+                            <img src="https://placehold.co/40x40" class="order-image" alt="iPhone 13">
+                            <div class="order-details">
+                                <h4>iPhone 13</h4>
+                                <span class="order-price">$562.00 × 1</span>
+                            </div>
+                        </div>
+                        <div class="order-meta">
+                            <span class="order-date">12 Sept 2022</span>
+                            <span class="order-status completed">Completed</span>
+                        </div>
+                    </div>
+                    <div class="recent-order-item">
+                        <div class="order-info">
+                            <img src="https://placehold.co/40x40" class="order-image" alt="iPhone 13">
+                            <div class="order-details">
+                                <h4>iPhone 13</h4>
+                                <span class="order-price">$562.00 × 1</span>
+                            </div>
+                        </div>
+                        <div class="order-meta">
+                            <span class="order-date">12 Sept 2022</span>
+                            <span class="order-status">Pending</span>
+                        </div>
+                    </div>
+                    <div class="recent-order-item">
+                        <div class="order-info">
+                            <img src="https://placehold.co/40x40" class="order-image" alt="iPhone 13">
+                            <div class="order-details">
+                                <h4>iPhone 13</h4>
+                                <span class="order-price">$562.00 × 1</span>
+                            </div>
+                        </div>
+                        <div class="order-meta">
+                            <span class="order-date">12 Sept 2022</span>
+                            <span class="order-status completed">Completed</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sales Summary Chart -->
+            <div class="sales-chart">
+                <div class="sales-chart-header">
+                    <div class="sales-chart-title">
+                        <h3 class="sales-chart-title-text">Summary</h3>
+                        <select class="sales-chart-select">
+                            <option>Sales</option>
+                        </select>
+                    </div>
+                    <select class="card-select">
+                        <option>Last 7 Days</option>
+                    </select>
+                </div>
+                <div class="sales-chart-container">
+                    <canvas id="salesChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
