@@ -89,6 +89,46 @@ document.addEventListener('DOMContentLoaded', function() {
     updateDashboardData();
 });
 
+// Burger menu functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const burgerMenu = document.querySelector('.burger-menu');
+    const sidebar = document.querySelector('.sidebar');
+    const mainContent = document.querySelector('.main-content');
+    
+    // Create overlay element
+    const overlay = document.createElement('div');
+    overlay.className = 'sidebar-overlay';
+    document.body.appendChild(overlay);
+    
+    function toggleSidebar() {
+        sidebar.classList.toggle('active');
+        overlay.classList.toggle('active');
+        document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : '';
+    }
+    
+    burgerMenu.addEventListener('click', toggleSidebar);
+    overlay.addEventListener('click', toggleSidebar);
+    
+    // Close sidebar when clicking outside
+    document.addEventListener('click', function(event) {
+        const isClickInside = sidebar.contains(event.target) || burgerMenu.contains(event.target);
+        if (!isClickInside && sidebar.classList.contains('active')) {
+            toggleSidebar();
+        }
+    });
+    
+    // Handle window resize
+    let windowWidth = window.innerWidth;
+    window.addEventListener('resize', function() {
+        if (window.innerWidth !== windowWidth) {
+            windowWidth = window.innerWidth;
+            if (windowWidth > 768 && sidebar.classList.contains('active')) {
+                toggleSidebar();
+            }
+        }
+    });
+});
+
 // Marketing Donut Chart
 const marketingCtx = document.getElementById('marketingChart').getContext('2d');
 const marketingChart = new Chart(marketingCtx, {
